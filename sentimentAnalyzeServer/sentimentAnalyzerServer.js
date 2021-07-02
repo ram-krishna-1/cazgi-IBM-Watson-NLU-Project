@@ -30,9 +30,9 @@ app.get("/",(req,res)=>{
   });
 
 app.get("/url/emotion", (req,res) => {
-    let textIn = req.query.url;
+    let urlInEmo = req.query.url;
     let analyzeParams = {
-        'url': textIn,
+        'url': urlInEmo,
         'features': {
             'entities': {
                 'emotion': true,
@@ -47,6 +47,7 @@ app.get("/url/emotion", (req,res) => {
         },
     };
     getNLUInstance().analyze(analyzeParams).then(analysisResults => {
+        console.log(JSON.stringify(analysisresults, null, 2))
         return res.send(analysisResults.result.entities[0].emotion);
         })
     
@@ -56,24 +57,25 @@ app.get("/url/emotion", (req,res) => {
 });
 
 app.get("/url/sentiment", (req,res) => {
-    let textIn = req.query.url;
+    let urlInSent = req.query.url;
     let analyzeParams = {
-        'url': textIn,
+        'url': urlInSent,
         'features': {
             'entities': {
-                'emotion': false,
                 'sentiment': true,
+                'emotion': false,
                 'limit': 2,
             },
             'keywords': {
-                'emotion': false,
                 'sentiment': true,
+                'emotion': false,
                 'limit': 2,
             },
         },
     };
     getNLUInstance().analyze(analyzeParams).then(analysisResults => {
-        return res.send(analysisResults.result.entities[0].sentiment);
+        console.log(JSON.stringify(analysisresults, null, 2))
+        return res.send(analysisResults.result.entities[0].sentiment.label);
         })
     
     .catch(err => {
@@ -82,9 +84,9 @@ app.get("/url/sentiment", (req,res) => {
 });
 
 app.get("/text/emotion", (req,res) => {
-    let textIn = req.query.text;
+    let textInEmo = req.query.text;
     let analyzeParams = {
-        'text': textIn,
+        'text': textInEmo,
         'features': {
             'entities': {
                 'emotion': true,
@@ -99,6 +101,7 @@ app.get("/text/emotion", (req,res) => {
         },
     };
     getNLUInstance().analyze(analyzeParams).then(analysisResults => {
+        console.log(JSON.stringify(analysisresults, null, 2))
         return res.send(analysisResults.result.entities[0].emotion);
         })
     
@@ -108,24 +111,25 @@ app.get("/text/emotion", (req,res) => {
 });
 
 app.get("/text/sentiment", (req,res) => {
-    let textIn = req.query.text;
+    let textInSent = req.query.text;
     let analyzeParams = {
-        'text': textIn,
+        'text': textInSent,
         'features': {
             'entities': {
-                'emotion': false,
                 'sentiment': true,
+                'emotion': false,
                 'limit': 2,
             },
             'keywords': {
-                'emotion': false,
                 'sentiment': true,
+                'emotion': false,
                 'limit': 2,
             },
         },
     };
     getNLUInstance().analyze(analyzeParams).then(analysisResults => {
-        return res.send(analysisResults.result.entities[0].sentiment);
+        console.log(JSON.stringify(analysisresults, null, 2))
+        return res.send(analysisResults.result.entities[0].sentiment.label);
         })
     
     .catch(err => {
