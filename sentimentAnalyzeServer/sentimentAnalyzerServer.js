@@ -30,20 +30,107 @@ app.get("/",(req,res)=>{
   });
 
 app.get("/url/emotion", (req,res) => {
-
-    return res.send({"happy":"90","sad":"10"});
+    let textIn = req.query.url;
+    let analyzeParams = {
+        'url': textIn,
+        'features': {
+            'entities': {
+                'emotion': true,
+                'sentiment': false,
+                'limit': 2,
+            },
+            'keywords': {
+                'emotion': true,
+                'sentiment': false,
+                'limit': 2,
+            },
+        },
+    };
+    getNLUInstance.analyze(analyzeParams).then(analysisResults => {
+        return res.send(JSON.stringify(analysisResults, null, 2));
+        })
+    
+    .catch(err => {
+        console.log('error:', err);
+    });
 });
 
 app.get("/url/sentiment", (req,res) => {
-    return res.send("url sentiment for "+req.query.url);
+    let textIn = req.query.url;
+    let analyzeParams = {
+        'url': textIn,
+        'features': {
+            'entities': {
+                'emotion': false,
+                'sentiment': true,
+                'limit': 2,
+            },
+            'keywords': {
+                'emotion': false,
+                'sentiment': true,
+                'limit': 2,
+            },
+        },
+    };
+    getNLUInstance.analyze(analyzeParams).then(analysisResults => {
+        return res.send(JSON.stringify(analysisResults, null, 2));
+        })
+    
+    .catch(err => {
+        console.log('error:', err);
+    });
 });
 
 app.get("/text/emotion", (req,res) => {
-    return res.send({"happy":"10","sad":"90"});
+    let textIn = req.query.text;
+    let analyzeParams = {
+        'text': textIn,
+        'features': {
+            'entities': {
+                'emotion': true,
+                'sentiment': false,
+                'limit': 2,
+            },
+            'keywords': {
+                'emotion': true,
+                'sentiment': false,
+                'limit': 2,
+            },
+        },
+    };
+    getNLUInstance.analyze(analyzeParams).then(analysisResults => {
+        return res.send(JSON.stringify(analysisResults, null, 2));
+        })
+    
+    .catch(err => {
+        console.log('error:', err);
+    });
 });
 
 app.get("/text/sentiment", (req,res) => {
-    return res.send("text sentiment for "+req.query.text);
+    let textIn = req.query.text;
+    let analyzeParams = {
+        'text': textIn,
+        'features': {
+            'entities': {
+                'emotion': false,
+                'sentiment': true,
+                'limit': 2,
+            },
+            'keywords': {
+                'emotion': false,
+                'sentiment': true,
+                'limit': 2,
+            },
+        },
+    };
+    getNLUInstance.analyze(analyzeParams).then(analysisResults => {
+        return res.send(JSON.stringify(analysisResults, null, 2));
+        })
+    
+    .catch(err => {
+        console.log('error:', err);
+    });
 });
 
 let server = app.listen(8080, () => {
