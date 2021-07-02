@@ -47,7 +47,7 @@ app.get("/url/emotion", (req,res) => {
         },
     };
     getNLUInstance().analyze(analyzeParams).then(analysisResults => {
-        return res.send(JSON.stringify(analysisResults, null, 2));
+        return res.send(JSON.stringify(analysisResults.result.entities[0].emotion, null, 2));
         })
     
     .catch(err => {
@@ -73,7 +73,7 @@ app.get("/url/sentiment", (req,res) => {
         },
     };
     getNLUInstance().analyze(analyzeParams).then(analysisResults => {
-        return res.send(JSON.stringify(analysisResults, null, 2));
+        return res.send(JSON.stringify(analysisResults.result.entities[0].sentiment, null, 2));
         })
     
     .catch(err => {
@@ -99,7 +99,7 @@ app.get("/text/emotion", (req,res) => {
         },
     };
     getNLUInstance().analyze(analyzeParams).then(analysisResults => {
-        return res.send(JSON.stringify(analysisResults, null, 2));
+        return res.send(JSON.stringify(analysisResults.result.entities[0].emotion, null, 2));
         })
     
     .catch(err => {
@@ -125,7 +125,7 @@ app.get("/text/sentiment", (req,res) => {
         },
     };
     getNLUInstance().analyze(analyzeParams).then(analysisResults => {
-        return res.send(JSON.stringify(analysisResults, null, 2));
+        return res.send(JSON.stringify(analysisResults.result.entities[0].sentiment, null, 2));
         })
     
     .catch(err => {
